@@ -17,6 +17,5 @@ export default class GameSavingLoader {
                 points: parsedValue.userInfo.points,
             },
         };
-      
     }
 };
