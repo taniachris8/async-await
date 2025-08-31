@@ -2,23 +2,21 @@ import read from "./reader";
 import json from "./parser";
 
 export default class GameSavingLoader {
-    static load() {
-        return read()
-            .then((result) => {
-                return json(result);
-            })
-            .then((result) => {
-                const data = JSON.parse(result);
-                return {
-                    id: data.id,
-                    created: data.created,
-                    userInfo: {
-                        id: data.userInfo.id,
-                        name: data.userInfo.name,
-                        level: data.userInfo.level,
-                        points: data.userInfo.points,
-                    },
-                };
-            });
+    static async load() {
+        const data = await read();
+        const value = await json(data);
+        const parsedValue = await JSON.parse(value);
+   
+        return {
+            id: parsedValue.id,
+            created: parsedValue.created,
+            userInfo: {
+                id: parsedValue.userInfo.id,
+                name: parsedValue.userInfo.name,
+                level: parsedValue.userInfo.level,
+                points: parsedValue.userInfo.points,
+            },
+        };
+      
     }
-}
+};
